@@ -25,7 +25,10 @@ To request a timestamp from the APRS Time Server, send an APRS message to the
 alias TIME with one of the following commands:
 * ISO - Request the current time formatted in accordance with ISO8601/RFC3339
 * UNIX - Request the current time as the number of seconds since Unix Epoch
-* APROX [FORMAT] - 
+* APPROX [FORMAT] - Dither the returned timestamp by a random value in the
+range of [-5,5] minutes from the current actual time. This can be useful when
+large fleets of stations are configured to perform the same action at
+identical clock times but it isn't actually desirable to have them syncronized.
 
 Points to note:
 * Timestamps will never be expressed to higher resolution than whole seconds.
@@ -52,10 +55,12 @@ station's location.
 
 Station EXAMPL-2 instead prefers to receive a Unix Epoch timestamp
 ```
-EXAMPL-2>APRS::TIME     :UNIX {002
+EXAMPL-2>APRS::TIME     :UNIX
 TIME>APRS::EXAMPL-2 :1476166411
-TIME>APRS::EXAMPL-2 :ack002
 ```
+EXAMPL-2 chose not to use a numbered APRS message, since receiving an
+APRS Timestamp is in itself sufficient acknowledgement of the "UNIX" message.
+
 
 ## Support
 
